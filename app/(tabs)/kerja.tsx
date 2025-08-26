@@ -3,8 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
     return (
-        <View style={styles.container}>
-            <Text>Hello, Expo + React Native 👋</Text>
+        <View style={styles.container} className="aspect-auto">
+            <Text className="text-2xl">Hello, Expo + React Native 👋</Text>
             <Text>Kerja Page</Text>
             <StatusBar style="auto" />
         </View>

@@ -1,21 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useEffect } from "react";
+import { View, Text, ActivityIndicator } from "react-native";
+import { useRouter } from "expo-router";
 
-export default function App() {
+export default function SplashScreen() {
+    const router = useRouter();
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            // masuk ke tabs/home setelah 2 detik
+            router.replace("/(tabs)/home");
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }, [router]);
+
     return (
-        <View style={styles.container}>
-            <Text>Hello, Expo + React Native 👋</Text>
-            <Text>Splashscreen</Text>
-            <StatusBar style="auto" />
+        <View className="flex-1 items-center justify-center bg-white">
+            <Text className="text-3xl font-bold text-blue-600">Sahabat Warga</Text>
+            <ActivityIndicator size="large" color="blue" className="mt-4" />
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});

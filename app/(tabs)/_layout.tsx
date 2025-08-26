@@ -1,80 +1,121 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import {Platform, View} from 'react-native';
-
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-//Icon ION
+import React from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { withLayoutContext } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 
+const { Navigator } = createMaterialTopTabNavigator();
+const TopTabs = withLayoutContext(Navigator);
+
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+    return (
+        <View style={{ flex: 1 }}>
+            {/* 🔹 Custom Header */}
+            <View
+                style={{
+                    paddingTop: 35, // space for status bar
+                    paddingBottom: 18,
+                    paddingHorizontal: 16,
+                    backgroundColor: "white",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    borderBottomWidth: 0,
+                    borderColor: "#ddd",
+                }}
+            >
+                {/* Left text */}
+                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                    Sahabat Warga
+                </Text>
 
-  return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
-        <Tabs.Screen
-            name="home"
-            options={{
-                title: 'Home',
-                tabBarIcon: ({ color, size}) => (
-                    <Ionicons name="home-sharp" size={size + 4} color="" />
-                )
-            }}
-        />
-        <Tabs.Screen
-            name="kesehatan"
-            options={{
-                title: 'Kesehatan',
-                tabBarIcon: ({ color, size}) => (
-                    <Ionicons name="medical" size={size + 4} color="" />
-                )
-            }}
-        />
-      <Tabs.Screen
-        name="darurat"
-        options={{
-            title: 'Darurat',
-            tabBarIcon: ({ color, size}) => (
-                <Ionicons name="alert-circle" size={size + 4} color="" />
-            )
-        }}
-      />
-        <Tabs.Screen
-            name="info"
-            options={{
-                title: 'Informasi',
-                tabBarIcon: ({ color, size}) => (
-                    <Ionicons name="logo-ionic" size={size + 4} />
-                )
-            }}
-        />
-        <Tabs.Screen
-            name="kerja"
-            options={{
-                title: 'Kerja',
-                tabBarIcon: ({ color, size}) => (
-                    <Ionicons name="briefcase" size={size + 4} />
-                )
-            }}
-        />
+                {/* Right buttons */}
+                <View style={{ flexDirection: "row", gap: 16 }}>
+                    <TouchableOpacity onPress={() => alert("Tes Berhasil!")}>
+                        <Ionicons name="chatbubble-outline" size={24} color="black" />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => alert("Tes Berhasil!")}>
+                        <Ionicons name="add-circle-outline" size={25} color="black" />
+                    </TouchableOpacity>
+                </View>
+            </View>
 
-    </Tabs>
-  );
+            {/* 🔹 Tabs */}
+            <TopTabs
+                screenOptions={{
+                    tabBarShowIcon: true,
+                    tabBarIndicatorStyle: { backgroundColor: "blue" },
+                    tabBarStyle: { backgroundColor: "white", elevation: 0 },
+                    tabBarLabelStyle: { fontSize: 12 },
+                    tabBarItemStyle: { paddingVertical: 0 },
+                    tabBarIconStyle: {
+                        alignItems: "center",
+                        justifyContent: "center", // 👈 bikin icon tepat di tengah
+                    },
+                }}
+            >
+                <TopTabs.Screen
+                    name="home"
+                    options={{
+                        title: "",
+                        contentStyle: { marginTop: 0, paddingTop: 0 },
+                        tabBarIcon: ({ color }) => (
+                            <Ionicons name="home-sharp" size={22} color="black" />
+                        ),
+                    }}
+                />
+                <TopTabs.Screen
+                    name="kesehatan"
+                    options={{
+                        title: "",
+                        contentStyle: { marginTop: 0, paddingTop: 0 },
+                        tabBarIcon: ({ color }) => (
+                            <Ionicons name="medical" size={22} color="black" />
+                        ),
+                    }}
+                />
+                <TopTabs.Screen
+                    name="darurat"
+                    options={{
+                        title: "",
+                        contentStyle: { marginTop: 0, paddingTop: 0 },
+                        tabBarIcon: ({ color }) => (
+                            <Ionicons name="alert-circle" size={22} color="black" />
+                        ),
+                    }}
+                />
+                <TopTabs.Screen
+                    name="info"
+                    options={{
+                        title: "",
+                        contentStyle: { marginTop: 0, paddingTop: 0 },
+                        tabBarIcon: ({ color }) => (
+                            <Ionicons name="videocam" size={22} color="black" />
+                        ),
+                    }}
+                />
+                <TopTabs.Screen
+                    name="kerja"
+                    options={{
+                        title: "",
+                        contentStyle: { marginTop: 0, paddingTop: 0 },
+                        tabBarIcon: ({ color }) => (
+                            <Ionicons name="briefcase" size={22} color="black" />
+                        ),
+                    }}
+                />
+
+                <TopTabs.Screen
+                    name="profile"
+                    options={{
+                        title: "",
+                        contentStyle: { marginTop: 0, paddingTop: 0 },
+                        tabBarIcon: ({ color }) => (
+                            <Ionicons name="person" size={22} color="black" />
+                        ),
+                    }}
+                />
+            </TopTabs>
+        </View>
+    );
 }

@@ -5,7 +5,7 @@ export default function App() {
     return (
         <View style={styles.container}>
             <Text className="text-2xl">Hello, Expo + React Native 👋</Text>
-            <Text>Info Page</Text>
+            <Text>Profile Page</Text>
             <StatusBar style="auto" />
         </View>
     );
