@@ -1,23 +1,11 @@
-import { useEffect } from "react";
-import { View, Text, ActivityIndicator } from "react-native";
-import { useRouter } from "expo-router";
+import React from 'react';
+import { View, ActivityIndicator, Text } from 'react-native';
 
 export default function SplashScreen() {
-    const router = useRouter();
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            // masuk ke tabs/home setelah 2 detik
-            router.replace("/(tabs)/home");
-        }, 2000);
-
-        return () => clearTimeout(timer);
-    }, [router]);
-
     return (
-        <View className="flex-1 items-center justify-center bg-white">
-            <Text className="text-3xl font-bold text-blue-600">Sahabat Warga</Text>
-            <ActivityIndicator size="large" color="blue" className="mt-4" />
+        <View className="flex-1 justify-center items-center bg-white">
+            <Text className="text-3xl font-bold text-blue-500 mb-4">Sahabat Warga</Text>
+            <ActivityIndicator size="large" color="#3B82F6" />
         </View>
     );
 }

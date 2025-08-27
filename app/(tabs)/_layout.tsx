@@ -1,64 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { withLayoutContext } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { CreatePost } from '../../components/CreatePost';
 
 const { Navigator } = createMaterialTopTabNavigator();
 const TopTabs = withLayoutContext(Navigator);
 
 export default function TabLayout() {
-    return (
-        <View style={{ flex: 1 }}>
-            {/* 🔹 Custom Header */}
-            <View
-                style={{
-                    paddingTop: 35, // space for status bar
-                    paddingBottom: 18,
-                    paddingHorizontal: 16,
-                    backgroundColor: "white",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    borderBottomWidth: 0,
-                    borderColor: "#ddd",
-                }}
-            >
-                {/* Left text */}
-                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                    Sahabat Warga
-                </Text>
+    const [showCreatePost, setShowCreatePost] = useState(false);
 
-                {/* Right buttons */}
-                <View style={{ flexDirection: "row", gap: 16 }}>
-                    <TouchableOpacity onPress={() => alert("Tes Berhasil!")}>
+    return (
+        <View className="flex-1 bg-white">
+            <View className="pt-10 pb-4 px-4 flex-row items-center justify-between border-b border-gray-200">
+                <Text className="text-xl font-bold">Sahabat Warga</Text>
+                <View className="flex-row gap-4">
+                    <TouchableOpacity onPress={() => alert("Fitur chat segera hadir!")}>
                         <Ionicons name="chatbubble-outline" size={24} color="black" />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => alert("Tes Berhasil!")}>
+                    <TouchableOpacity onPress={() => setShowCreatePost(true)}>
                         <Ionicons name="add-circle-outline" size={25} color="black" />
                     </TouchableOpacity>
                 </View>
             </View>
-
-            {/* 🔹 Tabs */}
             <TopTabs
                 screenOptions={{
                     tabBarShowIcon: true,
-                    tabBarIndicatorStyle: { backgroundColor: "blue" },
-                    tabBarStyle: { backgroundColor: "white", elevation: 0 },
-                    tabBarLabelStyle: { fontSize: 12 },
-                    tabBarItemStyle: { paddingVertical: 0 },
-                    tabBarIconStyle: {
-                        alignItems: "center",
-                        justifyContent: "center", // 👈 bikin icon tepat di tengah
-                    },
+                    tabBarIndicatorStyle: { backgroundColor: "#3B82F6" },
+                    tabBarStyle: { elevation: 0 },
+                    tabBarLabel: () => "",
                 }}
             >
                 <TopTabs.Screen
                     name="home"
                     options={{
-                        title: "",
-                        contentStyle: { marginTop: 0, paddingTop: 0 },
                         tabBarIcon: ({ color }) => (
                             <Ionicons name="home-sharp" size={22} color="black" />
                         ),
@@ -67,8 +43,6 @@ export default function TabLayout() {
                 <TopTabs.Screen
                     name="kesehatan"
                     options={{
-                        title: "",
-                        contentStyle: { marginTop: 0, paddingTop: 0 },
                         tabBarIcon: ({ color }) => (
                             <Ionicons name="medical" size={22} color="black" />
                         ),
@@ -77,8 +51,6 @@ export default function TabLayout() {
                 <TopTabs.Screen
                     name="darurat"
                     options={{
-                        title: "",
-                        contentStyle: { marginTop: 0, paddingTop: 0 },
                         tabBarIcon: ({ color }) => (
                             <Ionicons name="alert-circle" size={22} color="black" />
                         ),
@@ -87,8 +59,6 @@ export default function TabLayout() {
                 <TopTabs.Screen
                     name="info"
                     options={{
-                        title: "",
-                        contentStyle: { marginTop: 0, paddingTop: 0 },
                         tabBarIcon: ({ color }) => (
                             <Ionicons name="videocam" size={22} color="black" />
                         ),
@@ -97,25 +67,24 @@ export default function TabLayout() {
                 <TopTabs.Screen
                     name="kerja"
                     options={{
-                        title: "",
-                        contentStyle: { marginTop: 0, paddingTop: 0 },
                         tabBarIcon: ({ color }) => (
                             <Ionicons name="briefcase" size={22} color="black" />
                         ),
                     }}
                 />
-
                 <TopTabs.Screen
                     name="profile"
                     options={{
-                        title: "",
-                        contentStyle: { marginTop: 0, paddingTop: 0 },
                         tabBarIcon: ({ color }) => (
                             <Ionicons name="person" size={22} color="black" />
                         ),
                     }}
                 />
             </TopTabs>
+            <CreatePost
+                visible={showCreatePost}
+                onClose={() => setShowCreatePost(false)}
+            />
         </View>
     );
 }
